@@ -2,7 +2,7 @@
 
 $servername = '127.0.0.1:3306';
 $username = 'root';
-$password = 'root';
+$password = '';
 
 //On essaie de se connecter
 try{
@@ -16,6 +16,5 @@ try{
      *les informations relatives à celle-ci*/
 catch(PDOException $e){
     echo "Erreur : " . $e->getMessage();
-
 }
 ?>

@@ -1,6 +1,5 @@
 <?php
 require 'vendor/autoload.php';
-require_once 'inc/bdd-conect.php';
 use GuzzleHttp\Client;
 
 class Bot{
@@ -31,7 +30,15 @@ class Bot{
 
 
     }
-    public function update_users(){
+    public function update_users($from, $bdd){
+        $result = $bdd->query("SELECT * FROM `users` WHERE `telegram_id` =".$from['id']);
+        if ($result->rowCount()<1){
+            $req = $bdd->prepare("INSERT INTO `users` (`first_name`, `last_name`, `username`, `language_code`, `telegram_id`) VALUES(?,?,?,?,?)");
+            $req->execute(array($from['first_name'], (isset($from['last_name'])) ? $from['last_name'] : 'default', (isset($from['username'])) ? $from['username'] : 'default', $from['language_code'], $from['id']));
+            return 'new_user_added';
+        }else{
+            return 'user_already_exist';
+        }
 
     }
 }
