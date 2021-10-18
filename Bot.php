@@ -16,7 +16,7 @@ class Bot{
         $this->bot_url = $this->telegram_api_url.$this->token.'/';
     }
     public function get_bot_api($method){
-
+        echo $method;
         try{
             $client = new Client([
                 'base_uri' => $this->bot_url,
