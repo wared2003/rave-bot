@@ -41,6 +41,10 @@ class Bot{
         }
 
     }
+    public function send_message($chat_id, $msg){
+        $method_with_message = 'sendMessage?chat_id='.$chat_id.'&text='.$msg;
+        $this->get_bot_api($method_with_message);
+    }
 }
 
 
