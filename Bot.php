@@ -16,7 +16,6 @@ class Bot{
         $this->bot_url = $this->telegram_api_url.$this->token.'/';
     }
     public function get_bot_api($method){
-        echo $method;
         try{
             $client = new Client([
                 'base_uri' => $this->bot_url,
@@ -45,7 +44,16 @@ class Bot{
         $method_with_message = 'sendMessage?chat_id='.$chat_id.'&text='.$msg;
         $this->get_bot_api($method_with_message);
     }
-}
+
+    public function auto_answer($message, $answers_dictionary){
+        foreach ($answers_dictionary as $key => $answer){
+            if (strpos(strtolower($message['message']['text']), strtolower($key)) !== FALSE){
+                $this->send_message($message['message']['from']['id'], $answer);
+                break;
+            }
+        }
+    }
+};
 
 
 ?>
